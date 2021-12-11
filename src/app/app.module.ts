@@ -12,14 +12,12 @@ import {LayoutModule} from "@angular/cdk/layout";
 import {MatButtonModule} from "@angular/material/button";
 import {HttpClientModule} from "@angular/common/http";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
-import {ApiPredictionComponent} from './api-prediction/api-prediction.component';
 
 @NgModule({
 
   declarations: [
     AppComponent,
     FoodPredictionComponent,
-    ApiPredictionComponent,
   ],
   imports: [
     BrowserModule,

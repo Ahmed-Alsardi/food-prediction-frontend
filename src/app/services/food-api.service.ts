@@ -13,8 +13,8 @@ export class FoodApiService {
   constructor(private http: HttpClient) {
   }
 
-  predict(ingredient: string): Observable<Prediction[]> {
-    return this.http.get<Prediction[]>(this.url, {
+  predict(ingredient: string): Observable<Prediction> {
+    return this.http.get<Prediction>(this.url, {
       params: {
         ingredient: ingredient
       }

@@ -1,6 +1,6 @@
-<div class="p-20">
+<div class="p-20 w-1/2 mx-auto max-w-6xl border-b-2 border-gray-200">
   <form [formGroup]="form" (ngSubmit)="onSubmit()"
-        class="flex flex-col w-1/2 mx-auto max-w-6xl border-b-2 border-gray-200 py-8">
+        class="flex flex-col  py-8">
     <mat-form-field>
       <mat-label>Enter your Ingredient</mat-label>
       <input matInput type="text" autocomplete="off" formControlName="prediction">
@@ -12,11 +12,29 @@
       <button [disabled]="form.invalid || loading" color="accent" mat-raised-button type="submit"
               class="mx-8">Predict!
       </button>
-      <button mat-button (click)="clear()">Clear</button>
     </div>
   </form>
-
-  <div class="w-1/2 mx-auto py-4 flex flex-col justify-around" s>
-    <api-prediction *ngFor="let p of predictions" [prediction]="p"></api-prediction>
+  <div class="w-full flex justify-center">
+    <button (click)="clear()" class="" mat-button>Clear</button>
   </div>
 </div>
+
+<div class="w-1/2 my-8 mx-auto p-4 flex flex h-96 flex bg-gray-50">
+  <!--  number of prediction here  -->
+  <div class="w-1/5 border-r-2 border-gray-200 h-full rounded-md text-center">
+    <button (click)="changeContent(i)"
+            *ngFor="let p of predictions; index as i"
+            class="text-xl mx-auto my-4 py-2 px-12 border-b-1 border-gray-200 block bg-blue-300 rounded-md">{{i + 1}}</button>
+  </div>
+  <!--  prediction content here  -->
+  <div *ngIf="currentPrediction" class="h-full w-4/5 px-4">
+    <h3>Ingredient: {{currentPrediction.ingredient}}</h3>
+    <p>Prediction: </p>
+    <ul>
+      <li *ngFor="let p of currentPrediction.prediction">
+        label: {{p.label}} | value: {{p.value}}
+      </li>
+    </ul>
+  </div>
+</div>
+

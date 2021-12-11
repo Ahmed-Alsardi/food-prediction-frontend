@@ -3,8 +3,11 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {FoodApiService} from "../services/food-api.service";
 
 export interface Prediction {
-  label: string,
-  value: number
+  ingredient: string,
+  prediction: [{
+    label: string,
+    value: number
+  }]
 }
 
 @Component({
@@ -15,8 +18,9 @@ export interface Prediction {
 export class FoodPredictionComponent implements OnInit {
 
   form!: FormGroup
-  predictions: Prediction[][] = []
+  predictions: Prediction[] = []
   loading = false
+  currentPrediction!: Prediction
 
   constructor(private fb: FormBuilder, private foodAPI: FoodApiService) {
   }
@@ -44,5 +48,11 @@ export class FoodPredictionComponent implements OnInit {
 
   clear() {
     this.form.reset()
+    this.predictions = []
+  }
+
+  changeContent(i: number) {
+    console.log("from change content" + i)
+    this.currentPrediction = this.predictions[i]
   }
 }
