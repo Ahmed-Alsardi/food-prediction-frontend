@@ -1,0 +1,23 @@
+<div class="p-20">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()"
+  class="flex flex-col w-2/3 mx-auto">
+    <mat-form-field>
+      <mat-label>Enter your Ingredient</mat-label>
+      <input matInput type="text" autocomplete="off" formControlName="prediction">
+      <mat-error *ngIf="prediction?.dirty && prediction?.invalid">
+        You must enter an ingredient
+      </mat-error>
+    </mat-form-field>
+    <div class="flex justify-center">
+      <button type="submit" [disabled]="form.invalid" mat-raised-button color="accent"
+              class="mx-8">Login</button>
+      <button mat-button (click)="clear()">Clear</button>
+    </div>
+
+
+
+
+
+  </form>
+
+</div>
