@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
+import {Prediction} from "../food-prediction/food-prediction.component";
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +13,11 @@ export class FoodApiService {
   constructor(private http: HttpClient) {
   }
 
-  predict(ingredient: string) {
-    this.http.get(this.url, {
+  predict(ingredient: string): Observable<Prediction[]> {
+    return this.http.get<Prediction[]>(this.url, {
       params: {
         ingredient: ingredient
       }
     })
-      .subscribe(res => console.log(res))
-
   }
 }
