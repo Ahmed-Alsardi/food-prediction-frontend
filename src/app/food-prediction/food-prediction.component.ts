@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FoodApiService} from "../services/food-api.service";
 
 @Component({
   selector: 'food-prediction',
@@ -9,7 +10,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 export class FoodPredictionComponent implements OnInit {
 
   form!: FormGroup
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private foodAPI: FoodApiService) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -22,7 +23,8 @@ export class FoodPredictionComponent implements OnInit {
   }
 
   onSubmit() {
-
+    const ingredient = this.prediction?.value
+    this.foodAPI.predict(ingredient)
   }
 
   clear() {
