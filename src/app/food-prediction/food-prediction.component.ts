@@ -55,4 +55,8 @@ export class FoodPredictionComponent implements OnInit {
     console.log("from change content" + i)
     this.currentPrediction = this.predictions[i]
   }
+
+  isCurrent(i: number) {
+    return this.predictions.indexOf(this.currentPrediction) == i ? "bg-gray-900" : "bg-gray-600";
+  }
 }
