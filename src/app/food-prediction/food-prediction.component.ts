@@ -10,6 +10,11 @@ export interface Prediction {
   }]
 }
 
+interface UIPrediction {
+  ingredient: string,
+  label: string
+}
+
 @Component({
   selector: 'food-prediction',
   templateUrl: './food-prediction.component.html',
@@ -18,9 +23,8 @@ export interface Prediction {
 export class FoodPredictionComponent implements OnInit {
 
   form!: FormGroup
-  predictions: Prediction[] = []
-  loading = false
-  currentPrediction!: Prediction
+  predictions: UIPrediction[] = []
+  example = "example"
 
   constructor(private fb: FormBuilder, private foodAPI: FoodApiService) {
   }
@@ -36,13 +40,19 @@ export class FoodPredictionComponent implements OnInit {
   }
 
   onSubmit() {
-    this.loading = true
     const ingredient = this.user_ingredient?.value
     this.foodAPI.predict(ingredient)
       .subscribe(res => {
-        this.predictions.push(res)
+
+        const label = res.prediction[0].label.slice(9)
+        const value = res.prediction[0].value
+        console.log(label + value)
+        const ui: UIPrediction = {
+          ingredient: res.ingredient,
+          label: label
+        }
+        this.predictions.push(ui)
         console.log(this.predictions)
-        this.loading = false
       })
   }
 
@@ -51,12 +61,4 @@ export class FoodPredictionComponent implements OnInit {
     this.predictions = []
   }
 
-  changeContent(i: number) {
-    console.log("from change content" + i)
-    this.currentPrediction = this.predictions[i]
-  }
-
-  isCurrent(i: number) {
-    return this.predictions.indexOf(this.currentPrediction) == i ? "bg-gray-900" : "bg-gray-600";
-  }
 }
