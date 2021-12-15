@@ -60,5 +60,9 @@ export class FoodPredictionComponent implements OnInit {
     this.form.reset()
     this.predictions = []
   }
-
+  clearLabel(p: UIPrediction) {
+    const newPrediction:UIPrediction[] = []
+    this.predictions.forEach(value => p != value ? newPrediction.push(value) : console.log(value, p))
+    this.predictions = newPrediction
+  }
 }
