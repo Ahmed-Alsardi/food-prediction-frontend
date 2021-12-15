@@ -9,33 +9,34 @@
       </mat-error>
     </mat-form-field>
     <div class="flex justify-center">
-      <button [disabled]="form.invalid || loading" color="accent" mat-raised-button type="submit"
-              class="mx-8">Predict!
+      <button [disabled]="form.invalid" color="accent" mat-raised-button type="submit"
+              class="bg-green-500 text-green-50 font-semibold px-6 py-2 rounded-xl text-md">Predict!
       </button>
+
+
     </div>
   </form>
   <div class="w-full flex justify-center">
-    <button (click)="clear()" class="" mat-button>Clear</button>
+
+    <button (click)="clear()" class="bg-green-500 text-green-50 font-semibold px-6 py-2 rounded-xl text-md" mat-button>Clear</button>
   </div>
 </div>
 
 <div class="w-1/2 my-8 mx-auto  flex flex h-96 flex bg-gray-50">
-  <!--  number of prediction here  -->
-  <div class="w-1/5 border-r-2 border-gray-200 h-full rounded-md text-center bg-gray-100 text-white">
-    <button (click)="changeContent(i)"
-            *ngFor="let p of predictions; index as i"
-            class="text-xl mx-auto w-full py-4 bg-gray-600 block hover:bg-gray-900"
-    >{{i + 1}}</button>
-  </div>
-  <!--  prediction content here  -->
-  <div *ngIf="currentPrediction" class="h-full w-4/5 px-4 text-gray-700">
-    <h3 class="text-3xl py-4">Ingredient: <strong>{{currentPrediction.ingredient}}</strong></h3>
-    <p>Prediction: </p>
-    <ul>
-      <li *ngFor="let p of currentPrediction.prediction">
-        label: {{p.label}} | value: {{p.value}}
-      </li>
-    </ul>
+  <div>
+    <div class="relative bg-white p-10 rounded-xl my-4" *ngFor="let p of predictions; let i = index">
+    <p>
+      {{i + 1}}: {{p.ingredient}}: {{p.label}}
+    </p>
+<!--    <span class="absolute bg-green-500 w-14 h-14 flex items-center justify-center font-bold text-green-50 rounded-full -top-6 -left-6">{{predictions.length}}</span>-->
+    <div class="absolute top-0 right-0 flex space-x-2 p-4">
+      <svg xmlns="http://www.w3.org/2000/svg" (click)="clearLabel(p)" class="h-6 w-6 cursor-pointer text-red-400"
+           fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    </div>
+
   </div>
 </div>
 
